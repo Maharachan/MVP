@@ -1,11 +1,7 @@
-const express = require("express");
-const bodyParser = require("body-parser");
 const db = require("../config/dbConfig");
 
-const app = express();
-app.use(bodyParser.json()); // Parse JSON requests
-
-app.post("/login", async (req, res) => {
+// Admin login handler
+const login = async (req, res) => {
   const { username, password } = req.body;
 
   try {
@@ -28,12 +24,9 @@ app.post("/login", async (req, res) => {
     // Successful login
     return res.json({ message: "Login successful" });
   } catch (error) {
-    console.error(error);
+    console.error("Login Error:", error);
     return res.status(500).json({ message: "Server error", error });
   }
-});
+};
 
-// Start the server
-app.listen(5000, () => {
-  console.log("Server is running on http://localhost:5000");
-});
+module.exports = { login };
