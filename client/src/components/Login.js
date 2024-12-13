@@ -12,16 +12,36 @@ const LoginPage = () => {
     setCredentials({ ...credentials, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Mock authentication (replace this with real authentication logic)
-    if (credentials.username === "admin" && credentials.password === "password123") {
-      localStorage.setItem("isAuthenticated", "true");
-      navigate("/admin"); // Redirect to admin dashboard
-    } else {
-      setError("Invalid username or password");
+    try {
+      // Send login request to backend
+      const response = await fetch("http://localhost:5000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        localStorage.setItem("isAuthenticated", "true"); // Set authentication
+        navigate("/admin"); // Redirect to admin page
+      } else {
+        setError(data.message); // Display error message from backend
+      }
+    } catch (err) {
+      setError("An error occurred. Please try again.");
+      console.error(err);
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("isAuthenticated"); // Clear authentication
+    navigate("/"); // Redirect to home page
   };
 
   return (
@@ -45,8 +65,15 @@ const LoginPage = () => {
           required
         />
         {error && <p className="error">{error}</p>}
-        <button type="submit" className="login-button">Login</button>
+        <button type="submit" className="login-button">
+          Login
+        </button>
       </form>
+
+      {/* Logout button */}
+      <button onClick={handleLogout} className="logout-button">
+        Logout
+      </button>
     </div>
   );
 };

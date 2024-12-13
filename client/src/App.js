@@ -12,13 +12,15 @@ import Section7 from "./components/Section7";
 import Footer from "./components/Footer";
 import Appointment from "./components/Appointment";
 import Admin from "./components/Admin";
-import LoginPage from "./components/Login"; // Login Page Component
+import LoginPage from "./components/Login";
 
-// Protected Route Component
 const ProtectedRoute = ({ children }) => {
   const isAuthenticated = localStorage.getItem("isAuthenticated");
-  return isAuthenticated ? children : <Navigate to="/login" replace />;
+
+  return isAuthenticated === "true" ? children : <Navigate to="/login" replace />;
 };
+
+
 
 const AppContent = () => {
   const location = useLocation();
@@ -52,7 +54,7 @@ const AppContent = () => {
         {/* Appointments Page */}
         <Route path="/appointment" element={<Appointment />} />
 
-        {/* Admin Page (Protected) */}
+        {/* Admin Page (Always Redirect to Login First) */}
         <Route
           path="/admin"
           element={
