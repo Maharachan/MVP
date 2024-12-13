@@ -7,13 +7,14 @@ import "./Admin.css";
 const AdminDashboard = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [filteredAppointments, setFilteredAppointments] = useState([]);
+  const [error, setError] = useState(""); // To handle error messages
   const navigate = useNavigate();
 
   // Check authentication
   useEffect(() => {
     const isAuthenticated = localStorage.getItem("isAuthenticated");
     if (!isAuthenticated) {
-      navigate("/"); // Redirect to login if not authenticated
+      navigate("/login"); // Redirect to login if not authenticated
     }
   }, [navigate]);
 
@@ -30,32 +31,53 @@ const AdminDashboard = () => {
       const response = await fetch(
         `http://localhost:5000/appointments?date=${formattedDate}`
       );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch appointments");
+      }
+
       const data = await response.json();
-      setFilteredAppointments(data);
+      setFilteredAppointments(data.appointments); // Set appointments
+      setError(""); // Clear previous errors
     } catch (error) {
-      console.error("Error fetching appointments:", error);
+      console.error("Error fetching appointments:", error.message);
+      setError("Unable to fetch appointments. Please try again later.");
+      setFilteredAppointments([]); // Clear appointments on error
     }
   };
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
-    fetchAppointments(date);
+    fetchAppointments(date); // Fetch appointments for the selected date
   };
 
   useEffect(() => {
-    fetchAppointments(selectedDate);
+    fetchAppointments(selectedDate); // Fetch appointments on page load
   }, [selectedDate]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("isAuthenticated"); // Remove the authentication token
+    navigate("/"); // Redirect to the home page
+  };
 
   return (
     <div className="admin-dashboard">
       <h2 className="admin-title">Admin Dashboard</h2>
+      <button onClick={handleLogout} className="logout-button">
+        Logout
+      </button>
       <div className="calendar-section">
         <h3>Select a Date</h3>
-        <Calendar onChange={handleDateChange} value={selectedDate} className="calendar" />
+        <Calendar
+          onChange={handleDateChange}
+          value={selectedDate}
+          className="calendar"
+        />
       </div>
 
       <div className="appointments-section">
         <h3>Appointments for {formatDate(selectedDate)}</h3>
+        {error && <p className="error-message">{error}</p>}
         {filteredAppointments.length > 0 ? (
           <ul className="appointments-list">
             {filteredAppointments.map((appointment, index) => (
@@ -81,7 +103,7 @@ const AdminDashboard = () => {
             ))}
           </ul>
         ) : (
-          <p>No appointments for this date.</p>
+          !error && <p>No appointments for this date.</p>
         )}
       </div>
     </div>

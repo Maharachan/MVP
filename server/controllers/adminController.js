@@ -1,6 +1,11 @@
+const express = require("express");
+const bodyParser = require("body-parser");
 const db = require("../config/dbConfig");
 
-exports.login = async (req, res) => {
+const app = express();
+app.use(bodyParser.json()); // Parse JSON requests
+
+app.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
   try {
@@ -10,18 +15,25 @@ exports.login = async (req, res) => {
     ]);
 
     if (rows.length === 0) {
-      return res.status(404).json({ message: "Something went wrong" });
+      return res.status(404).json({ message: "Username not found" });
     }
 
     const admin = rows[0];
 
-    // Compare plain text password
+    // Compare plain text password (use hashed passwords in production)
     if (password !== admin.password) {
-      return res.status(401).json({ message: "Invalid credentials" });
+      return res.status(401).json({ message: "Invalid username or password" });
     }
 
+    // Successful login
     return res.json({ message: "Login successful" });
   } catch (error) {
+    console.error(error);
     return res.status(500).json({ message: "Server error", error });
   }
-};
+});
+
+// Start the server
+app.listen(5000, () => {
+  console.log("Server is running on http://localhost:5000");
+});

@@ -7,7 +7,7 @@
   }
   
   .admin-title {
-    margin-top: 120px;
+    
     font-size: 60px;
     margin-bottom: 1.5rem;
     color: #b4860f;
@@ -64,5 +64,23 @@
     border: 1px solid #ccc;
     padding: 10px;
     margin-bottom: 10px;
+  }
+  .logout-button {
+    display: block;
+    margin: 0 auto 20px auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 100;
+    color: #fff;
+    background-color: #b4860f;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  .logout-button:hover {
+    background-color: #b4860f;
   }
   
