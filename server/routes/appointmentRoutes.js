@@ -1,14 +1,45 @@
-const express = require("express");
-const { scheduleAppointment } = require("../controllers/appointmentController");
+const db = require("../config/dbConfig");
+const moment = require("moment");
 
-const router = express.Router();
+// Function to handle appointment scheduling
+const scheduleAppointment = async (req, res) => {
+  const { date, time, name, email, contact, message } = req.body;
 
-// Route to schedule an appointment
-router.post("/", scheduleAppointment);
+  // Validate required fields
+  if (!date || !time || !name || !email) {
+    return res.status(400).json({
+      error: "All fields (date, time, name, email) are required",
+    });
+  }
 
-// Test route for debugging
-router.get("/", (req, res) => {
-  res.send("Appointment API is working!");
-});
+  try {
+    // Convert time to 24-hour format (HH:mm:ss)
+    const formattedTime = moment(time, "h:mm A").format("HH:mm:ss");
 
-module.exports = router;
+    // Insert data into the database
+    const query = `INSERT INTO bookings (date, time, name, email, contact, message) VALUES (?, ?, ?, ?, ?, ?)`;
+    const values = [date, formattedTime, name, email, contact, message];
+
+    // Execute the query
+    const [result] = await db.query(query, values);
+
+    // Respond with success
+    res.status(201).json({
+      message: "Appointment scheduled successfully",
+      appointment: {
+        id: result.insertId,
+        date,
+        time: formattedTime, // Send the formatted time back
+        name,
+        email,
+        contact,
+        message,
+      },
+    });
+  } catch (err) {
+    console.error("Database Insert Error:", err.message);
+    res.status(500).json({ error: "Database error occurred" });
+  }
+};
+
+module.exports = { scheduleAppointment };
