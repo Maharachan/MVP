@@ -1,6 +1,10 @@
 const db = require("../config/dbConfig");
 const moment = require("moment");
 
+
+
+
+
 // Function to handle appointment scheduling
 const scheduleAppointment = async (req, res) => {
   const { date, time, name, email, contact, message } = req.body;
@@ -41,5 +45,6 @@ const scheduleAppointment = async (req, res) => {
     res.status(500).json({ error: "Database error occurred" });
   }
 };
+
 
 module.exports = { scheduleAppointment };

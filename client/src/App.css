@@ -1,3 +1,10 @@
+/* Global styles */
+html, body {
+  background-color: #000000; /* Set the background color for the entire page to black */
+  margin: 0;
+  height: 100%; /* Ensure the body takes up the full height of the page */
+}
+
 .App {
   text-align: center;
 }
@@ -15,13 +22,13 @@
 
 .App-header {
   background-color: #000000; /* Set the background color to black */
-  min-height: 100vh;
+  min-height: 100vh; /* Ensure the header takes up the full viewport height */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: white; /* Text color is white for contrast */
 }
 
 .App-link {
@@ -39,10 +46,4 @@
 
 html {
   scroll-behavior: smooth;
-}
-
-/* Add background-color for the entire page */
-body {
-  background-color: #000000; /* Set the background color of the body to black */
-  margin: 0;
 }

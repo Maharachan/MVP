@@ -20,18 +20,18 @@ const ProtectedRoute = ({ children }) => {
   return isAuthenticated === "true" ? children : <Navigate to="/login" replace />;
 };
 
-
-
 const AppContent = () => {
   const location = useLocation();
 
-  // Hide Navbar for specific routes (e.g., admin, login)
-  const hideNavbarRoutes = ["/admin", "/login"];
+  // Hide Navbar for specific routes (only hide for the home page)
+  const hideNavbarRoutes = ["/"];
   const shouldShowNavbar = !hideNavbarRoutes.includes(location.pathname);
 
   return (
     <>
-      {shouldShowNavbar && <Navbar />}
+      {/* Navbar is always shown on login and admin page */}
+      <Navbar />
+      
       <Routes>
         {/* Home Page */}
         <Route

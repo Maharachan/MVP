@@ -18,6 +18,7 @@ const AdminDashboard = () => {
     }
   }, [navigate]);
 
+  // Format date to YYYY-MM-DD format
   const formatDate = (date) => {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -25,11 +26,19 @@ const AdminDashboard = () => {
     return `${year}-${month}-${day}`;
   };
 
+  // Fetch appointments from the backend API
   const fetchAppointments = async (date) => {
     const formattedDate = formatDate(date);
     try {
       const response = await fetch(
-        `http://localhost:5000/appointments?date=${formattedDate}`
+        `http://localhost:5000/appointments?date=${formattedDate}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            // Add Authorization token if required
+          },
+        }
       );
 
       if (!response.ok) {
@@ -46,26 +55,20 @@ const AdminDashboard = () => {
     }
   };
 
+  // Handle date change on the calendar
   const handleDateChange = (date) => {
     setSelectedDate(date);
     fetchAppointments(date); // Fetch appointments for the selected date
   };
 
+  // Fetch appointments on page load for the default selected date
   useEffect(() => {
     fetchAppointments(selectedDate); // Fetch appointments on page load
   }, [selectedDate]);
 
-  const handleLogout = () => {
-    localStorage.removeItem("isAuthenticated"); // Remove the authentication token
-    navigate("/"); // Redirect to the home page
-  };
-
   return (
     <div className="admin-dashboard">
       <h2 className="admin-title">Admin Dashboard</h2>
-      <button onClick={handleLogout} className="logout-button">
-        Logout
-      </button>
       <div className="calendar-section">
         <h3>Select a Date</h3>
         <Calendar
