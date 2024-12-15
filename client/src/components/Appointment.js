@@ -60,6 +60,9 @@ const AppointmentPage = () => {
     setFormData({ name: "", email: "", contact: "", comments: "" });
   };
 
+  // Get the current date
+  const currentDate = new Date();
+
   return (
     <div className="appointment-page">
       <h2 className="title">Book an Appointment</h2>
@@ -71,6 +74,7 @@ const AppointmentPage = () => {
               onChange={setSelectedDate}
               value={selectedDate}
               className="calendar"
+              minDate={currentDate} // Restrict to current date and future dates only
             />
           </div>
 

@@ -1,8 +1,13 @@
-.appointment-page {
+/* Global styles */
+body {
+  background-color: #000000; /* Set the entire page background to black */
+  margin: 0;
   font-family: "Poppins", sans-serif;
+}
+
+.appointment-page {
   padding: 2rem;
-  background-color: #000000; /* Black background for all views */
-  color: #333;
+  color: #fff; /* Ensure text color is white for contrast on black background */
   text-align: center;
 }
 
@@ -127,6 +132,8 @@
     margin-top: 120px;
   }
 }
+
+/* Thank You Section */
 .thank-you-section {
   text-align: center;
   margin-top: 20px;
@@ -152,7 +159,7 @@
 .another-appointment-button {
   padding: 10px 20px;
   font-size: 16px;
-  background-color: #007bff;
+  background-color: #b4860f;
   color: white;
   border: none;
   border-radius: 5px;
@@ -162,5 +169,5 @@
 
 .home-button:hover,
 .another-appointment-button:hover {
-  background-color: #0056b3;
+  background-color: #b4860f;
 }
