@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
@@ -26,12 +26,12 @@ const AdminDashboard = () => {
     return `${year}-${month}-${day}`;
   };
 
-  // Fetch appointments from the backend API
-  const fetchAppointments = async (date) => {
+  // Memoize fetchAppointments function using useCallback
+  const fetchAppointments = useCallback(async (date) => {
     const formattedDate = formatDate(date);
     try {
       const response = await fetch(
-        `http://localhost:5000/appointments?date=${formattedDate}`,
+        `http://localhost:7000/appointments?date=${formattedDate}`,
         {
           method: "GET",
           headers: {
@@ -53,7 +53,7 @@ const AdminDashboard = () => {
       setError("Unable to fetch appointments. Please try again later.");
       setFilteredAppointments([]); // Clear appointments on error
     }
-  };
+  }, []);
 
   // Handle date change on the calendar
   const handleDateChange = (date) => {
@@ -64,7 +64,7 @@ const AdminDashboard = () => {
   // Fetch appointments on page load for the default selected date
   useEffect(() => {
     fetchAppointments(selectedDate); // Fetch appointments on page load
-  }, [selectedDate]);
+  }, [selectedDate, fetchAppointments]); // Add fetchAppointments to dependencies
 
   return (
     <div className="admin-dashboard">

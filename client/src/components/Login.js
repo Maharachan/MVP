@@ -26,7 +26,7 @@ const LoginPage = () => {
 
     try {
       // Send login request to backend (correct API endpoint)
-      const response = await fetch("http://localhost:5000/admin/login", {
+      const response = await fetch("http://localhost:7000/admin/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
