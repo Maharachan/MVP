@@ -7,7 +7,8 @@ import "./Admin.css";
 const AdminDashboard = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [filteredAppointments, setFilteredAppointments] = useState([]);
-  const [error, setError] = useState(""); // To handle error messages
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // Loading state for better UX
   const navigate = useNavigate();
 
   // Check authentication
@@ -26,17 +27,17 @@ const AdminDashboard = () => {
     return `${year}-${month}-${day}`;
   };
 
-  // Memoize fetchAppointments function using useCallback
+  // Fetch appointments function
   const fetchAppointments = useCallback(async (date) => {
     const formattedDate = formatDate(date);
+    setIsLoading(true); // Set loading to true while fetching data
     try {
       const response = await fetch(
-        `http://localhost:7000/appointments?date=${formattedDate}`,
+        `http://localhost:7000/fetch-appointments?date=${formattedDate}`, // Corrected endpoint
         {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            // Add Authorization token if required
           },
         }
       );
@@ -46,25 +47,27 @@ const AdminDashboard = () => {
       }
 
       const data = await response.json();
-      setFilteredAppointments(data.appointments); // Set appointments
+      setFilteredAppointments(data.appointments || []); // Set appointments or empty array
       setError(""); // Clear previous errors
     } catch (error) {
       console.error("Error fetching appointments:", error.message);
       setError("Unable to fetch appointments. Please try again later.");
       setFilteredAppointments([]); // Clear appointments on error
+    } finally {
+      setIsLoading(false); // Stop loading
     }
   }, []);
 
   // Handle date change on the calendar
   const handleDateChange = (date) => {
     setSelectedDate(date);
-    fetchAppointments(date); // Fetch appointments for the selected date
+    fetchAppointments(date);
   };
 
-  // Fetch appointments on page load for the default selected date
+  // Fetch appointments on component mount and when selectedDate changes
   useEffect(() => {
-    fetchAppointments(selectedDate); // Fetch appointments on page load
-  }, [selectedDate, fetchAppointments]); // Add fetchAppointments to dependencies
+    fetchAppointments(selectedDate);
+  }, [selectedDate, fetchAppointments]);
 
   return (
     <div className="admin-dashboard">
@@ -80,33 +83,37 @@ const AdminDashboard = () => {
 
       <div className="appointments-section">
         <h3>Appointments for {formatDate(selectedDate)}</h3>
-        {error && <p className="error-message">{error}</p>}
-        {filteredAppointments.length > 0 ? (
+
+        {isLoading ? (
+          <p>Loading appointments...</p>
+        ) : error ? (
+          <p className="error-message">{error}</p>
+        ) : filteredAppointments.length > 0 ? (
           <ul className="appointments-list">
             {filteredAppointments.map((appointment, index) => (
               <li key={index} className="appointment-item">
                 <p>
-                  <strong>Time:</strong> {appointment.time}
+                  <strong>Time:</strong> {appointment.time || "N/A"}
                 </p>
                 <p>
-                  <strong>Name:</strong> {appointment.name}
+                  <strong>Name:</strong> {appointment.name || "N/A"}
                 </p>
                 <p>
-                  <strong>Email:</strong> {appointment.email}
+                  <strong>Email:</strong> {appointment.email || "N/A"}
                 </p>
                 <p>
-                  <strong>Contact:</strong> {appointment.contact}
+                  <strong>Contact:</strong> {appointment.contact || "N/A"}
                 </p>
-                {appointment.comments && (
+                {appointment.message && (
                   <p>
-                    <strong>Comments:</strong> {appointment.comments}
+                    <strong>Message:</strong> {appointment.message}
                   </p>
                 )}
               </li>
             ))}
           </ul>
         ) : (
-          !error && <p>No appointments for this date.</p>
+          <p>No appointments found for this date.</p>
         )}
       </div>
     </div>

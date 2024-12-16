@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 
 // API routes
 app.use("/appointments", appointmentRoutes);
-app.use("/fatch-appointments", fatch);
+app.use("/fetch-appointments", fatch);
 app.use("/admin", adminRoutes);
 
 // Serve React static files (in production)

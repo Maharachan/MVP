@@ -57,7 +57,7 @@ const AppointmentPage = () => {
     setIsSubmitted(false);
     setSelectedDate(null);
     setSelectedTime("");
-    setFormData({ name: "", email: "", contact: "", comments: "" });
+    setFormData({ name: "", email: "", contact: "", comments: ""});
   };
 
   // Get the current date
