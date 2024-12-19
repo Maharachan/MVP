@@ -1,0 +1,45 @@
+/* Section 1 Styles */
+.section1 {
+    background-image: url("../assets/bg1.png"); /* Use the path to your image */
+    background-size: cover; /* Ensure the image covers the entire container */
+    background-position: center; /* Center the image */
+    height: 90vh; /* Adjust height as needed */
+    display: flex;
+    flex-direction: column;
+    
+    position: relative;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .text-container {
+    width: 100%; /* Adjust width as needed */
+    text-align: center; /* Center align the container text */
+  
+  }
+  
+  .centered-text {
+    color: #ff0b0b; /* Red color for centered text */
+    font-size: 60px; /* Adjust size as needed */
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 20px; /* Space between centered and left-aligned text */
+    margin-top: 70px;
+  }
+  
+  .left-aligned-text {
+    color: #ff0b0b; /* Black color for left-aligned text */
+    font-size: 28px; /* Adjust size as needed */
+    text-align: left; /* Align the text to the left */
+    max-width: 100%; /* Limit the width for better readability */
+    margin-left: 220px;
+    margin-top: 65px;
+    font-weight: bolder;
+  }
+  .left-aligned-text1 {
+    color: #000000; /* Black color for left-aligned text */
+    font-size: 18px; /* Adjust size as needed */
+    text-align: left; /* Align the text to the left */
+    max-width: 100%; /* Limit the width for better readability */
+    margin-left: 220px;
+    font-weight: bold;
+  }

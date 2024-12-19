@@ -1,0 +1,106 @@
+/* Navbar Styling */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: transparent; /* Transparent Background */
+    position: fixed; /* Sticks to the top */
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    color: white;
+    margin-right: 50px;
+    font-family: 'Montserrat', sans-serif;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    
+  }
+  
+  .navbar-logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar-logo .logo {
+    width: 200px;
+    margin-left: 20px;
+    margin-right: 10px;
+  }
+  
+  .navbar-logo span {
+    font-size: 1.5rem;
+
+  }
+  
+  .navbar-links {
+    list-style: none;
+    display: flex;
+    gap: 45px;
+    font-size: 16px;
+  }
+  
+  .navbar-links li {
+    display: inline;
+  }
+  
+  .navbar-links a {
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    transition: color 0.3s;
+    text-transform: uppercase;
+  }
+  
+  .navbar-links a:hover {
+    color: #ffffff; /* Slight hover effect */
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .navbar-search-btn {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: white;
+    border: none;
+    border-radius: 20px;
+    color: red;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-right: 100px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-transform: uppercase;
+  }
+  
+  .navbar-search-btn:hover {
+    background-color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .search-icon {
+    margin-right:10px;
+  }
+  /* Additional Class for Scrolling */
+.navbar.scrolled {
+  background-color: rgb(255, 0, 0); /* White background on scroll */
+  color: rgb(255, 255, 255); /* Change text color to black when the background is white */
+}
+
+.navbar.scrolled .navbar-links a {
+  color: rgb(255, 255, 255); /* Adjust link color for contrast */
+}
+
+.navbar.scrolled .navbar-search-btn {
+  color: rgb(255, 0, 0); /* Change button text color */
+  background-color: rgb(255, 255, 255); /* Make the search button background transparent */
+}
+
+

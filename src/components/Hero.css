@@ -1,0 +1,91 @@
+/* Hero Section Styles */
+.hero-section {
+    background-color: #ff0b0b;
+    height: 60vh; /* Full-screen height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .search-container {
+    background-color: #ffffff;
+    padding-left: 100px;
+    padding-right: 120px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    border-radius: 25px;
+    box-shadow: 0px 13px 1px rgb(255, 156, 156);
+    display: flex;
+    align-items: center;
+    margin-top: 90px;
+  }
+  
+  .filter-group {
+    display: flex;
+    gap: 45px; /* Space between filters */
+  }
+  
+  /* Dropdown (Select) Styling */
+  .filter {
+    padding-left: 35px;
+    padding-right: 35px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border: none;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    font-size: 15px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: 600;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Adds subtle shadow */
+    appearance: none; /* Removes default browser styling */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-align: center;
+  }
+  
+  /* Dropdown Options */
+  .filter option {
+    background-color: #ffffff; /* Background of dropdown options */
+    color: #000000; /* Text color */
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  /* Hover Effect for Dropdown Options */
+  .filter option:hover {
+    background-color: #000000; /* Light gray on hover */
+    color: #ff0b0b; /* Change text color on hover */
+  }
+  
+  /* Focused Dropdown */
+  .filter:focus {
+    outline: none; /* Remove outline */
+    border: 2px solid #ff0b0b; /* Add border on focus */
+  }
+  
+  /* Search Button */
+  .search-button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 50%;
+    background-color: #ff0b0b;
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+    margin-left: 30px;
+  }
+  
+  .search-button:hover {
+    background-color: #d00a0a;
+  }
+  
+  .search-button i {
+    font-size: 16px;
+  }
+  
