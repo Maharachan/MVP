@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import apiClient from "../apis/apiClient.js";
 import "./Login.css";
 import Navbar from "../components/Navbar"; // Assuming you have a Navbar component
 
@@ -25,22 +26,13 @@ const LoginPage = () => {
     e.preventDefault();
 
     try {
-      // Send login request to backend (correct API endpoint)
-      const response = await fetch("http://localhost:7000/admin/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(credentials),
-      });
+      const response = await apiClient.post("/admin/login", credentials);
 
-      const data = await response.json();
-
-      if (response.ok) {
+      if (response.status === 200) {
         localStorage.setItem("isAuthenticated", "true"); // Set authentication
         navigate("/admin"); // Redirect to admin page on success
       } else {
-        setError(data.message); // Display error message from backend
+        setError(response.data.message); // Display error message from backend
       }
     } catch (err) {
       setError("An error occurred. Please try again.");
@@ -50,9 +42,7 @@ const LoginPage = () => {
 
   return (
     <div className="login-page">
-      {/* Insert the existing Navbar here */}
       <Navbar />
-      
       <h2>ADMIN LOGIN</h2>
       <form onSubmit={handleSubmit} className="login-form">
         <input

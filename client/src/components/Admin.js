@@ -33,7 +33,7 @@ const AdminDashboard = () => {
     setIsLoading(true); // Set loading to true while fetching data
     try {
       const response = await fetch(
-        `http://localhost:7000/fetch-appointments?date=${formattedDate}`, // Corrected endpoint
+        `https://miraculousmvp.com/api/fetch-appointments?date=${formattedDate}`, // Corrected endpoint
         {
           method: "GET",
           headers: {
