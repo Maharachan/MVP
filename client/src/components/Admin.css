@@ -8,6 +8,7 @@
 }
 
 .admin-title {
+  padding-top: 100px;
   font-size: 60px;
   margin-bottom: 1.5rem;
   color: #b4860f;
@@ -90,6 +91,7 @@
 /* Mobile view adjustments */
 @media (max-width: 768px) {
   .admin-title {
+    padding-top: 100px;
     font-size: 40px; /* Reduce title size */
   }
 

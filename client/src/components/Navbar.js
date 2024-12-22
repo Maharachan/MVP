@@ -12,6 +12,11 @@ function Navbar() {
     setMenuOpen(!menuOpen);
   };
 
+  // Close the menu when a link is clicked
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
+
   // Change navbar background on scroll
   useEffect(() => {
     const handleScroll = () => {
@@ -32,7 +37,7 @@ function Navbar() {
     <nav className={`navbar ${navbarBackground ? "scrolled" : ""}`}>
       {/* Logo linked to home */}
       <div className="logo">
-        <Link to="/">
+        <Link to="/" onClick={closeMenu}>
           <img src={logo} alt="Logo" className="logo" />
         </Link>
       </div>
@@ -47,19 +52,19 @@ function Navbar() {
       {/* Navigation links */}
       <ul className={`nav-links ${menuOpen ? "active" : ""}`}>
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/" onClick={closeMenu}>Home</Link>
         </li>
         <li>
-          <a href="#services">Services</a>
+          <a href="#services" onClick={closeMenu}>Services</a>
         </li>
         <li>
-          <a href="#contact">Contact Us</a>
+          <a href="#contact" onClick={closeMenu}>Contact Us</a>
         </li>
         <li>
-          <Link to="/admin">Admin</Link>
+          <Link to="/admin" onClick={closeMenu}>Admin</Link>
         </li>
         <li>
-          <Link to="/appointment" className="appointment-btn">
+          <Link to="/appointment" className="appointment-btn" onClick={closeMenu}>
             Book An Appointment
           </Link>
         </li>

@@ -7,11 +7,11 @@ import "swiper/css/autoplay"; // Import the autoplay styles
 import "./Section5.css";
 
 // Import images
-import image1 from "../assets/images/01.png";
-import image2 from "../assets/images/02.png";
-import image3 from "../assets/images/03.png";
-import image4 from "../assets/images/04.png";
-import image5 from "../assets/images/05.png";
+import image1 from "../assets/images/12.png";
+import image2 from "../assets/images/13.png";
+import image3 from "../assets/images/14.png";
+import image4 from "../assets/images/15.png";
+import image5 from "../assets/images/16.png";
 
 const Section5 = () => {
   const images = [image1, image2, image3, image4, image5];
